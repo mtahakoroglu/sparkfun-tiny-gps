@@ -16,14 +16,20 @@ if (realTimeTrajectory)
     set(f, 'UserData', ''); % Initialize UserData to store pressed key
 end
 if (writeTextFile)
+    % Create gps-data folder if it doesn't exist
+    folderName = 'data';
+    if ~exist(folderName, 'dir')
+        mkdir(folderName);
+    end
+    
     dateCharFormat = datestr(now);
     for i=1:length(dateCharFormat)
         if (dateCharFormat(i) == ':')
             dateCharFormat(i) = '-';
         end
     end
-    dateCharFormat(length(dateCharFormat)+1:length(dateCharFormat)+4) = '.txt';
-    textFileName = ['gps data ', dateCharFormat];
+    dateCharFormat(length(dateCharFormat)+1:length(dateCharFormat)+4) = '.csv';
+    textFileName = fullfile(folderName, ['gps data ', dateCharFormat]);
 end
 while (true) % i <= n yerine sonsuz döngüye
     % Check for ESC or 'q' key press
@@ -62,9 +68,14 @@ while (true) % i <= n yerine sonsuz döngüye
                 if (writeTextFile)
                     packetAndCoordinate = [packetNumber coordinate];
                     if (packetNumber == 1)
-                        dlmwrite(textFileName, packetAndCoordinate, 'delimiter', '\t', 'precision', '%.7f');
+                        % Add header for CSV file
+                        fid = fopen(textFileName, 'w');
+                        fprintf(fid, 'Packet,Latitude,Longitude\n');
+                        fclose(fid);
+                        % Write data with comma delimiter
+                        dlmwrite(textFileName, packetAndCoordinate, 'delimiter', ',', 'precision', '%.7f', '-append');
                     else
-                        dlmwrite(textFileName, packetAndCoordinate, '-append', 'delimiter', '\t', 'precision', '%.7f');
+                        dlmwrite(textFileName, packetAndCoordinate, '-append', 'delimiter', ',', 'precision', '%.7f');
                     end
                 end
             end
@@ -79,7 +90,7 @@ delete(s);
 fprintf('Serial port is terminated.\n')
 %% plot captured data
 % clearvars -except textFileName; clc;
-data = load(textFileName);
+data = readmatrix(textFileName); % Use readmatrix instead of load for CSV files
 figure(2); clf;
 plot(data(:,3), data(:,2), 'k.');
 grid on; set(gca, 'gridlinestyle', '--');

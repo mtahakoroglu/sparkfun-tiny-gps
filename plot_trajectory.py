@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 def list_gps_files():
-    """List all GPS data files in the gps_data directory"""
-    data_dir = 'gps_data'
+    """List all GPS data files in the data directory"""
+    data_dir = 'data'
     if not os.path.exists(data_dir):
         print(f"Error: Directory '{data_dir}' not found.")
         return []
     
-    files = glob.glob(os.path.join(data_dir, "gps data *.txt"))
+    # Update file pattern to look for CSV files
+    files = glob.glob(os.path.join(data_dir, "gps*.csv"))
     files.sort(key=os.path.getmtime)  # Sort by modification time
     return files
 
@@ -36,7 +37,8 @@ def select_file():
         filename = os.path.basename(file)
         print(f"{i+1}. {filename}")
     
-    print(f"\n{len(files)+1}. Latest file ({os.path.basename(files[-1])})")
+    if files:
+        print(f"\n{len(files)+1}. Latest file ({os.path.basename(files[-1])})")
     
     try:
         choice = int(input(f"\nSelect file to plot (1-{len(files)+1}), or press Enter for latest: ") or len(files)+1)
@@ -54,7 +56,7 @@ def select_file():
 def plot_trajectory(file_path):
     """Plot GPS trajectory from the specified file"""
     try:
-        # Read the data file
+        # Read the CSV file
         data = pd.read_csv(file_path)
         
         # Extract file name for the plot title
@@ -62,6 +64,7 @@ def plot_trajectory(file_path):
         
         # Create plot
         plt.figure(figsize=(10, 8))
+        # Use the appropriate column names from your CSV file
         plt.plot(data['Longitude'], data['Latitude'], 'k.')
         plt.grid(True, linestyle='--')
         plt.xlabel('Longitude')
@@ -77,14 +80,16 @@ def plot_trajectory(file_path):
     except Exception as e:
         print(f"Error plotting data: {e}")
 
-def main():
-    # Allow user to select a file or use a specific file name
+# Main execution block - THIS IS WHAT WAS MISSING
+if __name__ == "__main__":
+    print("GPS Trajectory Plotter")
+    print("=====================")
+    
+    # Select the file to plot
     file_path = select_file()
     
     if file_path:
+        print(f"\nPlotting trajectory from: {os.path.basename(file_path)}")
         plot_trajectory(file_path)
     else:
-        print("No file selected. Exiting.")
-
-if __name__ == "__main__":
-    main()
+        print("\nNo file selected. Exiting.")
