@@ -80,3 +80,7 @@ xlabel('Longitude'); ylabel('Latitude');
 axis([xmin, xmax, ymin, ymax]);
 
 fprintf('Plotted %d GPS points from %s\n', length(latitude), selectedFile.name);
+
+% Extract the base filename without extension and save PNG with same name
+[~, baseName, ~] = fileparts(selectedFile.name);
+print(gcf, '-dpng', '-r300', fullfile(folderName, [baseName '.png']));
