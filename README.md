@@ -27,7 +27,7 @@ pip install pyserial
 
 <p align="justify">Sonrasında Arduino ve SF Tiny GPS modülü bağlantılarını yaptıktan sonra VS Code içinde mutlaka <b>gps</b> isimli sanal ortamı seçerek <b>sparkfun_tiny_gps.py</b> kodunu çalıştırarak veri toplayalım. Sparkfun Tiny GPS modül ile ilgili bütün bilgileri ve resimleri yukarıdaki <b>document</b> klasörünün içindeki örnek raporda bulabilirsiniz. Aşağıdaki resime tıklayarak 6 Mayıs 2025 Salı günü EEM 216 dersinde yaptığımız SF Tiny GPS deneyinin <a href="https://www.youtube.com/watch?v=qhLhj4XStyc">videosunu</a> izleyebilirsiniz.</p>
 
-<a href="https://www.youtube.com/watch?v=qhLhj4XStyc"><img src="photo/IMG-20250506.jpg" alt="SF Tiny GPS experiment gathering at the stadium" width="%100" height="auto"></a>
+<a href="https://www.youtube.com/watch?v=qhLhj4XStyc"><img src="figure/2025_05_06_gps_experiment.jpg" alt="SF Tiny GPS experiment gathering at the stadium" width="%100" height="auto"></a>
 
 <h3>Referanslar</h3>
 <ol>
