@@ -2,7 +2,7 @@
 % gelen koordinatları RAM'de tutmak yerine bir txt dosyasına yazdırma 
 % eklendi. Ardından plot_trajectory.m koşturulacak.
 clear; clc;
-s = serialport('COM8', 57600);
+s = serialport('COM8', 9600);
 packetNumber = single(0); % packet number
 startByte = uint8('h');
 packetLength = 9; % in terms of bytes w/o the startByte  

@@ -47,8 +47,8 @@ fig.canvas.mpl_connect('key_press_event', on_key_press)
 # Open serial port
 try:
     ser = serial.Serial()
-    ser.baudrate = 57600
-    ser.port = 'COM8'
+    ser.baudrate = 9600
+    ser.port = 'COM14'
     ser.open()
     if (ser.is_open):
         print('Serial port %s with %i baudrate is open.' %(ser.port, ser.baudrate))

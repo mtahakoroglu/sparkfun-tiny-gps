@@ -61,7 +61,7 @@ void setup()
   // fast because we need to print everything before a new sentence 
   // comes in. If you slow it down, the messages might not be valid and 
   // you will likely get checksum errors.
-  Serial.begin(57600);
+  Serial.begin(9600);
   //Sets baud rate of your GPS
   uart_gps.begin(GPSBAUD);
   

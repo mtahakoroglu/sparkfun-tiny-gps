@@ -54,7 +54,7 @@ longitude = coordinates(:,3);
 plot(longitude, latitude, 'k.');
 grid on; set(gca, 'gridlinestyle', '--');
 xlabel('Boylam'); ylabel('Enlem');
-s = 0.0001;
+s = 0.00001;
 xmax = (1+s)*max(longitude);
 xmin = (1-s)*min(longitude);
 ymax = (1+s)*max(latitude);
